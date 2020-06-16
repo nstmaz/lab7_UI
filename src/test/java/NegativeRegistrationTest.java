@@ -6,6 +6,8 @@ import com.volsu.UI.utils.EmailGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
@@ -13,6 +15,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class NegativeRegistrationTest extends BaseTest {
+
+    private static final Logger log = LogManager.getLogger(NegativeRegistrationTest.class);
 
     @Autowired
     SignInForm signInForm;
@@ -25,6 +29,7 @@ public class NegativeRegistrationTest extends BaseTest {
     @Description("User registration with empty required fields.")
     @DisplayName("Required fields are empty.")
     public void registrationRequiredFieldsAreEmpty(Account account) {
+
         MainPage mainPage = new MainPage(webdriver);
         mainPage.clickSignIn();
 
@@ -35,6 +40,7 @@ public class NegativeRegistrationTest extends BaseTest {
         accountCreationForm = new AccountCreationForm(webdriver);
 
         accountCreationForm.registrationNoRequiredFields(account);
+        log.info("Verify that correct error messages are shown.");
         Assert.assertTrue(accountCreationForm.errorMessageCheck());
     }
 

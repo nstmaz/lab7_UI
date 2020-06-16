@@ -6,6 +6,8 @@ import com.volsu.UI.utils.EmailGenerator;
 import io.qameta.allure.Description;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.testng.Assert;
@@ -13,6 +15,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class PositiveRegistrationTest extends BaseTest {
+
+    private static final Logger log = LogManager.getLogger(PositiveRegistrationTest.class);
 
     @Autowired
     SignInForm signInForm;
@@ -33,6 +37,7 @@ public class PositiveRegistrationTest extends BaseTest {
         signInForm.clickCreateAccountButton();
 
         accountCreationForm.fullRegistration(account);
+        log.info("Verify successful user registration.");
         Assert.assertTrue(accountCreationForm.isRegistrationSuccessful());
     }
 
